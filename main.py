@@ -27,7 +27,7 @@ def main(stdscr):
     bad_trys = []
     hited = set()
     game.startGame()
-    word = "*" * len(game.getWord())
+    word = ["*"] * len(game.getWord())
     row = 1
     stdscr.addstr("Welcome to Hangman game!")
     echo()
@@ -43,7 +43,7 @@ def main(stdscr):
             stdscr.clear()
             row  = 0
 
-        stdscr.addstr(row,0,"Current word: " + word)
+        stdscr.addstr(row,0,"Current word: " + "".join(word))
         row += 1
         stdscr.addstr(row,0,"Mistakes:" + str(game.getMistakes()))
         row += 1
@@ -57,7 +57,7 @@ def main(stdscr):
             positions = game.checkLetter(user_input)
             if positions:
                 for pos in positions:
-                    word = word[0:pos] + user_input + word[pos+1:]
+                    word[pos] = user_input
                 hited.add(user_input)
             else:
                 bad_trys.append(user_input)
@@ -68,9 +68,9 @@ def main(stdscr):
             stdscr.addstr(row,0,game.endGame())
             stdscr.refresh()
             bad_trys = []
-            sleep(4)
+            sleep(2.5)
             game.startGame()
-            word = "*" * len(game.getWord())
+            word = ["*"] * len(game.getWord())
             stdscr.clear()
             row = 0
             started = False
